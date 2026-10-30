@@ -1,7 +1,7 @@
 ![Banner](banner.png)
 
 # codeintel-Code-Reachability-Analyzer
-A tool that analyzes code to identify potentially unreachable code blocks based on static analysis. This can help identify dead code and potential logical errors. Uses control flow analysis libraries like `cfgv` internally. - Focused on Tools for static code analysis, vulnerability scanning, and code quality assurance
+A tool that analyzes code to identify potentially unreachable code blocks based on static analysis. This can help identify dead code and potential logical errors. Works on the Python AST directly, checking each statement list for a statement after a return, raise, break or continue. - Focused on Tools for static code analysis, vulnerability scanning, and code quality assurance
 
 ## Install
 `git clone https://github.com/ShadowStrikeHQ/codeintel-code-reachability-analyzer`
