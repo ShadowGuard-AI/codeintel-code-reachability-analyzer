@@ -26,7 +26,10 @@ def is_code_reachable(file_path):
         file_path (str): Path to the Python file.
 
     Returns:
-        list: A list of line numbers where unreachable code is suspected.  Returns an empty list if no unreachable code is suspected or if there's an error.
+        list: A list of line numbers where unreachable code is suspected.
+              Returns an empty list if no unreachable code is suspected.
+              Returns None if the file could not be read or parsed, so
+              the caller can tell an error apart from a clean file.
     """
     try:
         with open(file_path, "r") as f:
@@ -34,13 +37,13 @@ def is_code_reachable(file_path):
         tree = ast.parse(source_code)
     except FileNotFoundError:
         logging.error(f"File not found: {file_path}")
-        return []
+        return None
     except SyntaxError as e:
         logging.error(f"Syntax error in {file_path}: {e}")
-        return []
+        return None
     except Exception as e:
         logging.error(f"An unexpected error occurred while analyzing {file_path}: {e}")
-        return []
+        return None
 
     # Unreachability is a property of a statement list: the statement
     # after a return, raise, break or continue in the same list cannot
@@ -61,10 +64,24 @@ def is_code_reachable(file_path):
                 continue
             for index, statement in enumerate(value[:-1]):
                 if isinstance(statement, terminators):
-                    following = value[index + 1]
-                    if hasattr(following, 'lineno'):
-                        unreachable.add(following.lineno)
+                    for following in value[index + 1:]:
+                        if hasattr(following, 'lineno'):
+                            unreachable.add(following.lineno)
     return sorted(unreachable)
+
+
+def is_excluded(file_path, exclude_list):
+    """
+    Compares normalised absolute paths. An exclusion entry that is a
+    directory excludes everything under it; a file entry excludes
+    that file, whatever spelling the path was given in.
+    """
+    file_abs = os.path.abspath(file_path)
+    for entry in exclude_list:
+        entry_abs = os.path.abspath(entry)
+        if file_abs == entry_abs or file_abs.startswith(entry_abs + os.sep):
+            return True
+    return False
 
 def process_file_or_directory(file_or_directory, exclude_list):
     """
@@ -73,25 +90,36 @@ def process_file_or_directory(file_or_directory, exclude_list):
     Args:
         file_or_directory (str): Path to the file or directory.
         exclude_list (list): List of files or directories to exclude.
+
+    Returns:
+        bool: True if any file could not be read or parsed, False otherwise.
     """
+    had_error = False
     if os.path.isfile(file_or_directory):
-        if file_or_directory.endswith(".py") and file_or_directory not in exclude_list:
+        if file_or_directory.endswith(".py") and not is_excluded(file_or_directory, exclude_list):
             logging.info(f"Analyzing file: {file_or_directory}")
             unreachable_lines = is_code_reachable(file_or_directory)
-            if unreachable_lines:
+            if unreachable_lines is None:
+                had_error = True
+            elif unreachable_lines:
                 print(f"Unreachable code suspected in {file_or_directory} at lines: {unreachable_lines}")
     elif os.path.isdir(file_or_directory):
-        for root, _, files in os.walk(file_or_directory):
+        for root, dirs, files in os.walk(file_or_directory):
+            dirs[:] = [d for d in dirs if not is_excluded(os.path.join(root, d), exclude_list)]
             for file in files:
                 if file.endswith(".py"):
                     file_path = os.path.join(root, file)
-                    if file_path not in exclude_list:
+                    if not is_excluded(file_path, exclude_list):
                         logging.info(f"Analyzing file: {file_path}")
                         unreachable_lines = is_code_reachable(file_path)
-                        if unreachable_lines:
+                        if unreachable_lines is None:
+                            had_error = True
+                        elif unreachable_lines:
                             print(f"Unreachable code suspected in {file_path} at lines: {unreachable_lines}")
     else:
         logging.error(f"Invalid file or directory: {file_or_directory}")
+        had_error = True
+    return had_error
 
 
 def main():
@@ -116,7 +144,8 @@ def main():
         if not os.path.exists(item):
             logging.warning(f"Warning: Exclude path {item} does not exist.")
 
-    process_file_or_directory(file_or_directory, exclude_list)
+    if process_file_or_directory(file_or_directory, exclude_list):
+        sys.exit(1)
 
 if __name__ == "__main__":
     """
