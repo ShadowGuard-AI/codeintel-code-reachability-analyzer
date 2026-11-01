@@ -64,9 +64,16 @@ def is_code_reachable(file_path):
                 continue
             for index, statement in enumerate(value[:-1]):
                 if isinstance(statement, terminators):
+                    # I flag every later statement in the list, even when the
+                    # terminator sits inside a condition I cannot evaluate. Code
+                    # after an if that returns is reachable when the branch is not
+                    # taken, so this list is suspects to read, not proof.
                     for following in value[index + 1:]:
                         if hasattr(following, 'lineno'):
                             unreachable.add(following.lineno)
+    # I collect in a set because one line can follow terminators in
+    # more than one enclosing list. Sorting at the end gives the
+    # caller line order instead of walk order.
     return sorted(unreachable)
 
 
@@ -78,6 +85,9 @@ def is_excluded(file_path, exclude_list):
     """
     file_abs = os.path.abspath(file_path)
     for entry in exclude_list:
+        # I resolve a relative entry against the caller's working
+        # directory, not against the target. An exclude written for one
+        # directory run from another can quietly match nothing.
         entry_abs = os.path.abspath(entry)
         if file_abs == entry_abs or file_abs.startswith(entry_abs + os.sep):
             return True
