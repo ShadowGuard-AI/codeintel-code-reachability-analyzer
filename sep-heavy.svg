@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 40" role="img" aria-label="Major separator: a tied twine rule stretched edge to edge, one knot at its centre and a buoy orange seal dot beside the knot, storm slate on chalk white">
+<rect x="0" y="0" width="1200" height="40" fill="#f5f3eb"/>
+<line x1="0" y1="20" x2="1200" y2="20" stroke="#46586a" stroke-width="3"/>
+<g stroke="#46586a" stroke-width="2"><line x1="180" y1="14" x2="180" y2="26"/><line x1="420" y1="14" x2="420" y2="26"/><line x1="780" y1="14" x2="780" y2="26"/><line x1="1020" y1="14" x2="1020" y2="26"/></g>
+<ellipse cx="600" cy="20" rx="14" ry="9" fill="#f5f3eb" stroke="#46586a" stroke-width="3"/>
+<circle cx="634" cy="20" r="7" fill="#e87428"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="The sorting office in three depths: the pigeonhole wall stays still while lantern light strengthens and weakens once, bundles are divided between an open sack that takes them in and a tied sack they rest beside untouched, and a ball of twine turns slowly at the front edge while the seal stamp rests unmoving">
+<rect x="0" y="0" width="1200" height="300" fill="#2c3a48"/>
+<g fill="#3e5064" stroke="#1e2832" stroke-width="2"><rect x="30" y="20" width="90" height="52"/><rect x="150" y="20" width="90" height="52"/><rect x="270" y="20" width="90" height="52"/><rect x="390" y="20" width="90" height="52"/><rect x="510" y="20" width="90" height="52"/><rect x="630" y="20" width="90" height="52"/><rect x="750" y="20" width="90" height="52"/><rect x="870" y="20" width="90" height="52"/><rect x="990" y="20" width="90" height="52"/></g>
+<g fill="#d6d0c0"><rect x="42" y="32" width="66" height="28"/><rect x="282" y="32" width="66" height="28"/><rect x="522" y="32" width="66" height="28"/><rect x="762" y="32" width="66" height="28"/><rect x="1002" y="32" width="66" height="28"/></g>
+<ellipse cx="600" cy="90" rx="560" ry="60" fill="#ffaa3c" opacity="0.05"><animate attributeName="opacity" values="0.05;0.16;0.05" dur="24s" repeatCount="indefinite"/></ellipse>
+<rect x="0" y="196" width="1200" height="14" fill="#604a32"/>
+<polygon points="300,268 314,214 386,214 400,268" fill="#46586a"/><ellipse cx="350" cy="206" rx="38" ry="10" fill="#141e26"><animate attributeName="rx" values="38;38;30;30;38" keyTimes="0;0.3;0.55;0.8;1" dur="16s" repeatCount="indefinite"/></ellipse>
+<g><animateTransform attributeName="transform" type="translate" values="0 0;-122 4;-122 4" keyTimes="0;0.4;1" dur="16s" repeatCount="indefinite"/><rect x="472" y="224" width="68" height="16" fill="#e2dcc8"/><line x1="506" y1="224" x2="506" y2="240" stroke="#46586a" stroke-width="3"/></g>
+<polygon points="620,268 632,220 688,220 700,268" fill="#46586a"/><line x1="636" y1="232" x2="684" y2="232" stroke="#f5f3eb" stroke-width="3"/><ellipse cx="660" cy="226" rx="13" ry="13" fill="#b08434"/>
+<rect x="596" y="238" width="52" height="16" fill="#e2dcc8"/>
+<g><animateTransform attributeName="transform" type="rotate" values="0 940 262;40 940 262;40 940 262" keyTimes="0;0.6;1" dur="20s" repeatCount="indefinite"/><ellipse cx="940" cy="262" rx="24" ry="18" fill="#f5f3eb" stroke="#46586a" stroke-width="2"/><path d="M922 254 a24 14 0 0 1 36 0" fill="none" stroke="#46586a" stroke-width="2"/></g>
+<line x1="916" y1="258" x2="852" y2="246" stroke="#f5f3eb" stroke-width="2"/>
+<ellipse cx="830" cy="252" rx="20" ry="24" fill="#b08434"/><ellipse cx="830" cy="252" rx="11" ry="14" fill="none" stroke="#f5f3eb" stroke-width="2"/>
+</svg>

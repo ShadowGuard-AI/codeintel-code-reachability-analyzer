@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 40" role="img" aria-label="Minor separator: a short centred length of twine with one knot and a small seal dot">
+<rect x="0" y="0" width="1200" height="40" fill="#f5f3eb"/>
+<line x1="430" y1="20" x2="770" y2="20" stroke="#46586a" stroke-width="2"/>
+<ellipse cx="600" cy="20" rx="11" ry="7" fill="#f5f3eb" stroke="#46586a" stroke-width="2"/>
+<circle cx="626" cy="20" r="5" fill="#e87428"/>
+</svg>
